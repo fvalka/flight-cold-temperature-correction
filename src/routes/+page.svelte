@@ -1,75 +1,76 @@
-<div class="border w-200 m-4 pl-8 pr-8 pt-7 pb-7 shadow-xl bg-white rounded">
-    <h1 class="text-2xl font-bold mb-4">Cold Temperature Altitude Correction</h1>
+<script lang="ts">
+  import NumericalOutputLabel from '../lib/components/data-display/NumericalOutputLabel.svelte';
 
-    <p>Please enter the elevation of the aerodrome and the temperature on the ground at the aerodrome.</p>
+    import NumericalInputField from "$lib/components/data-display/NumericalInputField.svelte";
+    import { Switch } from "@skeletonlabs/skeleton-svelte";
+</script>
 
-    <div class="border-t-3 border-b-3 border-sky-800 mb-4 mt-4 pt-2 pb-2">
-        <h2 class="text-xl font-semibold">Aerodrome</h2>
-        <div class="grid grid-cols-3 gap-1 m-2">
-            <label>
-                <div>Elevation</div>
-                <input type="number" class="border rounded p-2 text-right w-32"><span class="ml-1">ft</span>
-            </label>
+<h1 class="text-2xl font-bold p-2">
+    Cold Temperature Altitude Correction
+</h1>
 
-            <label>
-                <div>Ground Temperature</div>
-                <input type="number" class="border rounded p-2 text-right w-16"><span class="ml-1">°C</span>
-            </label>
-            
-            <div>
-                <div>ISA Difference</div>
-            </div>
-        </div>
+<div class="w-full max-w-md p-4">
+
+    <p>
+        Please enter the elevation of the aerodrome and the temperature on the
+        ground at the aerodrome.
+    </p>
+
+    <h2 class="text-xl font-semibold">Aerodrome</h2>
+    <div class="w-full grid grid-cols-2 p-2 gap-2">
+        <NumericalInputField label="Elevation" value="" unit="ft"></NumericalInputField>
+        <NumericalInputField label="Ground Temperature" value="" unit="°C"></NumericalInputField>
+
+        <label class="label col-span-2">
+            <Switch>
+                <Switch.Control>
+                    <Switch.Thumb />
+                </Switch.Control>
+                <Switch.Label>Advanced Options</Switch.Label>
+                <Switch.HiddenInput />
+            </Switch>
+        </label>
     </div>
 
-    <div class="mb-4 border-b-1">
-        <h2 class="text-xl font-semibold">Altitudes to Correct</h2>
-        <div class="grid grid-cols-2 gap-1 m-2">
-            <label>
-                <div>Original Altitude</div>
-                <input type="number" class="border rounded p-2 text-right"><span class="ml-1">ft</span>
-            </label>
+    <hr class="hr border-t-4 border-secondary-700" />
 
-            <div>
-                <div>Corrected Altitude</div>
-            </div>
-        </div>
-    </div>
+    <h2 class="text-xl font-semibold">Approach</h2>
 
-    <div class="mb-4 border-b-1"> 
-        <h2 class="text-xl font-semibold">Approach</h2>
+    <h3 class="font-semibold w-full text-center mt-3">Altitudes</h3>
+    <fieldset class="w-full max-w-sm p-2 gap-2 grid grid-cols-2">
         
-        <div class="grid grid-cols-2 gap-1 m-2">
-            <label>
-                <div class="text-amber-700">Original Flight Path Angle</div>
-                <input type="number" class="border rounded p-2 text-right"><span class="ml-1">°</span>
-            </label>
+        <NumericalInputField label="IAF" value="" unit="ft"></NumericalInputField>
+        <NumericalOutputLabel label="Corrected IAF" value="" unit="ft"></NumericalOutputLabel>
 
-            <div>
-                <div class="text-green-700">Corrected Flight Path Angle</div>
-            </div>
-        </div>
-    </div>
+        <NumericalInputField label="FAF / FDP" value="" unit="ft"></NumericalInputField>
+        <NumericalOutputLabel label="Corrected FAF / FPD" value="" unit="ft"></NumericalOutputLabel>
 
-    <div>
-        <h2 class="text-xl font-semibold mt-2">Go Around</h2>     
+        <NumericalInputField label="DA / MDA" value="" unit="ft"></NumericalInputField>
+        <NumericalOutputLabel label="Corrected DA / MDA" value="" unit="ft"></NumericalOutputLabel>
+    </fieldset>
 
-        <div class="grid grid-cols-2 gap-1 m-2">
-            <label>
-                <div class="text-amber-700">Original Climb Gradient</div>
-                <input type="number" class="border rounded p-2 text-right"><span class="ml-1">%</span>
-            </label>
+    <h3 class="font-semibold w-full text-center mt-3">Glide Path</h3>
+    <fieldset class="w-full max-w-sm p-2 gap-2 grid grid-cols-2">
+        
+        <NumericalInputField label="Flight Path Angle" value="" unit="°"></NumericalInputField>
+        <NumericalOutputLabel label="Corrected Flight Path Angle" value="" unit="°"></NumericalOutputLabel>
+    </fieldset>
 
-            <div>
-                <div class="text-green-700">Corrected Climb Gradient</div>
-            </div>
-        </div>
-    </div>
+    <hr class="hr border-t-1" />
+
+    <h2 class="text-xl font-semibold">Go Around</h2>
+
+    <hr class="hr border-t-1" />
+
+    
+    <h2 class="text-xl font-semibold">Additional Altitudes</h2>
+
+    <hr class="hr border-t-1" />
 </div>
 
 <style lang="postcss">
-  @reference "tailwindcss";
-  :global(html) {
-    background-color: theme(--color-gray-100);
-  }
+    @reference "tailwindcss";
+    :global(html) {
+        background-color: theme(--color-gray-100);
+    }
 </style>
