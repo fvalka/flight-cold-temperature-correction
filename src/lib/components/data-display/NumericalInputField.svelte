@@ -1,5 +1,9 @@
 <script lang="ts">
-    let {label, value, unit, step="1"} = $props();
+    let {label, value = $bindable(), unit, step="1"} = $props();
+
+    export function isValid(value: number) {
+        
+    }
 </script>
 
 <label class="label">
@@ -8,7 +12,7 @@
         <input
             bind:value={value}
             step={step}
-            class="ig-input font-mono text-right"
+            class="ig-input font-mono text-right preset-outlined border-surface-200-800"
             type="number"
             placeholder=""
         />
