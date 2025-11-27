@@ -10,10 +10,14 @@ ___
 
 ## Calculation Method
 
+### Inputs
+
 As inputs we use:
 - the aerodrome elevation, $h_{Aerodrome}$, in ft.
 - the temperature on the ground at the aerodrome, $T_{Aerodrome}$, in $°C$
 - the altitude (above MSL) which we want to correct, $z_{Airplane}$, in $ft$
+
+### ISA Deviation 
 
 Using these inputs we first calculate the aerodrome ISA temperature deviation, $\Delta T_{std}$, in $°C$ using the following paramters of the standard atmosphere:
 - the ISA standard lapse rate, $L_0$ of $-0.0019812 \frac{°C}{ft}$
