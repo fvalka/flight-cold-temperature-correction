@@ -83,7 +83,7 @@
 </script>
 
 <div
-    class="col-span-4 lg:col-span-1 border-b-4 lg:border-r-2 lg:border-b-0 border-secondary-700-300"
+    class="col-span-4 lg:col-span-1 border-b-4 lg:border-r-2 lg:border-b-0 border-secondary-700-300 pb-2"
 >
     <h2 class="w-full text-center text-xl font-semibold text-primary-800-200">
         Aerodrome
