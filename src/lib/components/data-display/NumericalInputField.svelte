@@ -1,5 +1,14 @@
 <script lang="ts">
-    let {label, value = $bindable(), unit: unit_of_value, step="1", oninput=null} = $props();
+    let {label, value = $bindable(), unit: unit_of_value, step="1", oninput=null, showerror=false} = $props();
+
+    function generateCssClasses() {
+        let border_classes = "border-surface-200-800";
+        if(showerror) {
+            border_classes = "border-error-300-700";
+        }
+
+        return "ig-input font-mono text-right preset-outlined " + border_classes;
+    }
 </script>
 
 <label class="label">
@@ -8,7 +17,7 @@
         <input
             bind:value={value}
             step={step}
-            class="ig-input font-mono text-right preset-outlined border-surface-200-800"
+            class={generateCssClasses()}
             type="number"
             placeholder=""
             oninput={oninput}

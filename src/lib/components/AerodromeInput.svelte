@@ -14,11 +14,16 @@
 
     let inputErrors: string[] = $state([]);
 
+    let showErrorElevationInput = $state(false);
+    let showErrorGroundTemperatureInput = $state(false);
+    let calculatedIsaDeviation = $derived(calculateIsaDeviationFormatted());
+
     /**
      * Validates the aerodrome inputs and updates the errors and
      * isInputValid state variables
      */
     function validateInput() {
+        console.log("validating input!");
         inputErrors = [];
 
         // Early fail errors because the input is not even numeric, 
@@ -31,13 +36,13 @@
             return;
         }
 
-        if (calculateIsaDeviationFormatted() === undefined) {
+        if (calculatedIsaDeviation === undefined) {
             isInputValid = false;
             return;
         }
         
         // Normal errors, all will be shown at once
-        if (calculateIsaDeviationFormatted() > 0) {
+        if (calculatedIsaDeviation > 0) {
             inputErrors.push("Calculations are only possible for ISA deviations smaller than 0. So temperatures colder than the standard atmosphere.");
         }
 
@@ -59,6 +64,7 @@
 
     
     function calculateIsaDeviationFormatted() {
+        console.log("Calculating is deviation");
         if (
             !isValidNumber(aerodrome_elevation_ft) ||
             !isValidNumber(aerodrome_ground_temperature_degC)
@@ -88,12 +94,14 @@
             bind:value={ aerodrome_elevation_ft }
             unit="ft"
             oninput={ validateInput }
+            showerror={ showErrorElevationInput }
         ></NumericalInputField>
         <NumericalInputField
             label="Ground Temperature"
             bind:value={ aerodrome_ground_temperature_degC }
             unit="°C"
             oninput={ validateInput }
+            showerror={ showErrorGroundTemperatureInput }
         ></NumericalInputField>
 
         {#each inputErrors as inputErrorMessage} 
@@ -106,7 +114,7 @@
 
         <NumericalOutputLabel
             label="ISA Devation"
-            value={calculateIsaDeviationFormatted()}
+            value={ calculatedIsaDeviation }
             unit="°C"
             isInputValid={ isInputValid }
         ></NumericalOutputLabel>

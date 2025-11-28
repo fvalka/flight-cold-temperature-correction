@@ -7,8 +7,8 @@
   import NumericalOutputLabel from '../lib/components/data-display/NumericalOutputLabel.svelte';
 
 
-  let aerodrome_elevation_ft: number = $state(NaN);
-  let aerodrome_ground_temperature_degC: number = $state(NaN);
+  let aerodrome_elevation_ft: number | null = $state(null);
+  let aerodrome_ground_temperature_degC: number | null = $state(null);
   let isAerodromeInputValid = $state(false);
 
 </script>
@@ -32,7 +32,8 @@
     <AerodromeInput 
         bind:aerodrome_elevation_ft={aerodrome_elevation_ft} 
         bind:aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
-        bind:isInputValid={isAerodromeInputValid}>
+        bind:isInputValid={isAerodromeInputValid}
+        >
     </AerodromeInput>
     
 
@@ -49,11 +50,19 @@
                 isInputValid={isAerodromeInputValid}>
             </AltitudeCorrection>
 
-            <NumericalInputField label="FAF / FDP" value="" unit="ft"></NumericalInputField>
-            <NumericalOutputLabel label="Corrected FAF / FPD" value="" unit="ft"></NumericalOutputLabel>
+            <AltitudeCorrection 
+                label="FAF / FDP" 
+                aerodrome_elevation_ft={aerodrome_elevation_ft} 
+                aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
+                isInputValid={isAerodromeInputValid}>
+            </AltitudeCorrection>
 
-            <NumericalInputField label="DA / MDA" value="" unit="ft"></NumericalInputField>
-            <NumericalOutputLabel label="Corrected DA / MDA" value="" unit="ft"></NumericalOutputLabel>
+            <AltitudeCorrection 
+                label="DA / MDA" 
+                aerodrome_elevation_ft={aerodrome_elevation_ft} 
+                aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
+                isInputValid={isAerodromeInputValid}>
+            </AltitudeCorrection>
         </div>
 
         <h3 class="font-semibold w-full text-center mt-3 text-secondary-700-300">Glide Path</h3>

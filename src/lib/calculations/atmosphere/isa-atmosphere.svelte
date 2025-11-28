@@ -13,7 +13,8 @@
             h: elevation_ft
         };
 
-        console.log("Calculating ISA Temperature for elevation using parmaters %s", JSON.stringify(calculation_parameters, null, 2));
+        console.log("Calculating ISA Temperature for elevation using parameters:");
+        console.log(calculation_parameters);
 
         return add(sea_level_temperature, multiply(lapse_rate, elevation_ft));
     }

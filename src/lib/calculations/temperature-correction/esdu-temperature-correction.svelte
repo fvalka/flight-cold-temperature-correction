@@ -40,11 +40,12 @@
         hPAerodrome: aerodrome_elevation
       };
 
-      console.log("Performing the ESDU based altitude temperature correction calculation using the equation: %s", equation_node.toString());
-      console.log("Using the calculation parameters: %s", JSON.stringify(calculation_parameters, null, 2));
+      console.debug("Performing the ESDU based altitude temperature correction calculation using the equation: %s", equation_node.toString());
+      console.debug("Using the calculation parameters:");
+      console.debug(calculation_parameters);
       
       const height_correction = equation_node.evaluate(calculation_parameters).to("ft");
-      console.log("Resulting height correction to be added to altitude: %s", height_correction.toString());
+      console.debug("Resulting height correction to be added to altitude: %s", height_correction.toString());
 
       return add(input_altitude, height_correction);
     }
