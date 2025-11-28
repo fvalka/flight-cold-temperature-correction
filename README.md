@@ -59,11 +59,13 @@ Using the [mathjs](https://mathjs.org/) evaluation parser we can compare the act
 - The temperature gradient of the atmosphere follows the ISA gradient of $-0.0019812 \frac{°C}{ft}$
 - The calculations are for altitudes lower than the ISA tropopause of $36 000 ft$
 
-## Validation / Debugging 
+## Validation / Debugging of the Calculations
 
 All the equations used and their input parameters are logged to the console on debug level. 
 
 To verify or debug the calculations open the dev console, set the console log levels to "Verbose" and then look for the folliwng messages:
+
+![Validating and debugging the equations and parameters used for the calculations](/doc/equation-validation-and-debugging.png)
 
 
 
