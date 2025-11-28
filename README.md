@@ -53,11 +53,18 @@ Using the [mathjs](https://mathjs.org/) evaluation parser we can compare the act
 \left(\frac{- DeltaTstd}{ L0}\right)\cdot\ln\left(1+\frac{\left( L0\cdot hPAirplane\right)}{\left( T0+ L0\cdot hPAerodrome\right)}\right)
 ```
 
-## Assumptions
+### Assumptions
 
 - The ISA difference is negative, meaning only temperatures colder than ISA are allowed
 - The temperature gradient of the atmosphere follows the ISA gradient of $-0.0019812 \frac{°C}{ft}$
 - The calculations are for altitudes lower than the ISA tropopause of $36 000 ft$
+
+## Validation / Debugging 
+
+All the equations used and their input parameters are logged to the console on debug level. 
+
+To verify or debug the calculations open the dev console, set the console log levels to "Verbose" and then look for the folliwng messages:
+
 
 
 
