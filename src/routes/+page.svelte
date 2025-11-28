@@ -12,14 +12,14 @@
   let isAerodromeInputValid = $state(false);
 
 </script>
-<div class="lg:flex lg:flex-row lg:min-h-screen lg:justify-center lg:place-items-start">
-    <div class="w-full grid grid-cols-4 max-w-md lg:max-w-7xl gap-4 p-4 lg:border-gray-200 lg:shadow-2xl 2xl:ml-5 2xl:mt-5">
+<div class="lg:flex lg:flex-row lg:min-h-screen lg:justify-center lg:place-items-start bg-gradient-to-br from-surface-600 to-secondary-700 dark:from-surface-900 dark:to-surface-950">
+    <div class="bg-white dark:bg-surface-800 w-full grid grid-cols-4 max-w-md lg:max-w-7xl gap-4 p-4 lg:border-gray-200 lg:shadow-2xl 2xl:ml-5 2xl:mt-5">
         <div class="col-span-4 border-b-1 border-b-surface-100-900">
             <h1 class="text-2xl font-bold mb-3 text-primary-800-200">
                 Cold Temperature Altitude Correction
             </h1>
 
-            <p class="text-surface-700-300">
+            <p class="text-surface-800-200">
                 Calculates the cold temperature correction for various altitudes based upon the 
                 elevation of the aerodrome and temperature measured o the ground at the aerodrome. 
             </p>
@@ -78,9 +78,12 @@
             
             <h3 class="font-semibold w-full text-center mt-3 text-secondary-700-300">Altitudes</h3>
             <div class="w-full max-w-sm p-2 gap-2 grid grid-cols-2">
-                
-                <NumericalInputField label="Altitude" value="" unit="ft"></NumericalInputField>
-                <NumericalOutputLabel label="Corrected Altitude" value="" unit="ft"></NumericalOutputLabel>
+                <AltitudeCorrection 
+                    label="Altitude" 
+                    aerodrome_elevation_ft={aerodrome_elevation_ft} 
+                    aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
+                    isInputValid={isAerodromeInputValid}>
+                </AltitudeCorrection>
             </div>
 
             <h3 class="font-semibold w-full text-center mt-3 text-secondary-700-300">Climb</h3>
