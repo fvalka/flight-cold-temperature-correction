@@ -94,6 +94,59 @@
 
     <div class="col-span-4 lg:col-span-1"> 
         <h2 class="w-full text-center text-xl font-semibold text-primary-800-200">Additional Altitudes</h2>
+
+        <div class="w-full max-w-sm p-2 gap-2 grid grid-cols-2">
+            
+            <AltitudeCorrection 
+                label="Input" 
+                aerodrome_elevation_ft={aerodrome_elevation_ft} 
+                aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
+                isInputValid={isAerodromeInputValid}>
+            </AltitudeCorrection>
+
+            <AltitudeCorrection 
+                label="" 
+                aerodrome_elevation_ft={aerodrome_elevation_ft} 
+                aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
+                isInputValid={isAerodromeInputValid}>
+            </AltitudeCorrection>
+
+            <AltitudeCorrection 
+                label="" 
+                aerodrome_elevation_ft={aerodrome_elevation_ft} 
+                aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
+                isInputValid={isAerodromeInputValid}>
+            </AltitudeCorrection>
+
+            <AltitudeCorrection 
+                label="" 
+                aerodrome_elevation_ft={aerodrome_elevation_ft} 
+                aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
+                isInputValid={isAerodromeInputValid}>
+            </AltitudeCorrection>
+
+            <AltitudeCorrection 
+                label="" 
+                aerodrome_elevation_ft={aerodrome_elevation_ft} 
+                aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
+                isInputValid={isAerodromeInputValid}>
+            </AltitudeCorrection>
+
+            <AltitudeCorrection 
+                label="" 
+                aerodrome_elevation_ft={aerodrome_elevation_ft} 
+                aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
+                isInputValid={isAerodromeInputValid}>
+            </AltitudeCorrection>
+
+            <AltitudeCorrection 
+                label="" 
+                aerodrome_elevation_ft={aerodrome_elevation_ft} 
+                aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
+                isInputValid={isAerodromeInputValid}>
+            </AltitudeCorrection>
+        </div>
+
     </div>
 
     

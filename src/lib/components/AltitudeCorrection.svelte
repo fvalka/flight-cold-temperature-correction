@@ -42,7 +42,7 @@
 <NumericalInputField {label} bind:value={input_altitude_ft} unit="ft"
 ></NumericalInputField>
 <NumericalOutputLabel
-  label={"Corrected " + label}
+  label={label == "" ? "" : "Corrected " + label}
   value={altitudeCorrectionFormatted(input_altitude_ft)}
   unit="ft"
   isInputValid={ isInputValid }
