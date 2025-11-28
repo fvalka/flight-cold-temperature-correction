@@ -48,6 +48,11 @@ where we then use the following physical quanitites in the calculation of the he
 \Delta h_{correction} = \frac{-\Delta T_{std}}{L_0} \ln \left( 1 + \frac{L_0 \Delta hP_{Airplane}}{T_0 + L_0 hP_{Aerodrome}} \right)
 ```
 
+Using the [mathjs](https://mathjs.org/) evaluation parser we can compare the actual equation in the actual program code used to the equation described above:
+```math
+\left(\frac{- DeltaTstd}{ L0}\right)\cdot\ln\left(1+\frac{\left( L0\cdot hPAirplane\right)}{\left( T0+ L0\cdot hPAerodrome\right)}\right)
+```
+
 ## Assumptions
 
 - The ISA difference is negative, meaning only temperatures colder than ISA are allowed
