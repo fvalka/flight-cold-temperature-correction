@@ -1,9 +1,5 @@
 <script lang="ts">
-    let {label, value = $bindable(), unit, step="1"} = $props();
-
-    export function isValid(value: number) {
-        
-    }
+    let {label, value = $bindable(), unit: unit_of_value, step="1", oninput=null} = $props();
 </script>
 
 <label class="label">
@@ -15,7 +11,8 @@
             class="ig-input font-mono text-right preset-outlined border-surface-200-800"
             type="number"
             placeholder=""
+            oninput={oninput}
         />
-        <div class="ig-cell preset-tonal w-10">{unit}</div>
+        <div class="ig-cell preset-tonal w-10">{unit_of_value}</div>
     </div>
 </label>

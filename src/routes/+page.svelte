@@ -1,14 +1,15 @@
 <script lang="ts">
-  import AltitudeCorrection from '../lib/components/data-display/AltitudeCorrection.svelte';
+  import AerodromeInput from '../lib/components/AerodromeInput.svelte';
 
-  import NumericalOutputLabel from '../lib/components/data-display/NumericalOutputLabel.svelte';
+  import AltitudeCorrection from '../lib/components/AltitudeCorrection.svelte';
+
   import NumericalInputField from "$lib/components/data-display/NumericalInputField.svelte";
-  import { Switch } from "@skeletonlabs/skeleton-svelte";
-  import { isaDeviation } from "../lib/calculations/isa-atmosphere.svelte";
+  import NumericalOutputLabel from '../lib/components/data-display/NumericalOutputLabel.svelte';
 
 
   let aerodrome_elevation_ft: number = $state(NaN);
   let aerodrome_ground_temperature_degC: number = $state(NaN);
+  let isAerodromeInputValid = $state(false);
 
 </script>
 
@@ -20,7 +21,7 @@
 
         <p class="text-surface-700-300">
             Calculates the cold temperature correction for various altitudes based upon the 
-            elevation of the aerodrome and temperature measured at the aerodrome on the ground. 
+            elevation of the aerodrome and temperature measured o the ground at the aerodrome. 
         </p>
 
         <p class="border-2 border-warning-300-700 text-warning-900-100 p-2 font-semibold mt-2 mb-2">
@@ -28,31 +29,11 @@
         </p>
     </div>
 
-    <div class="col-span-4 lg:col-span-1 border-b-4 lg:border-r-2 lg:border-b-0 border-secondary-700-300"> 
-        <h2 class="w-full text-center text-xl font-semibold text-primary-800-200">Aerodrome</h2>
-        <div class="w-full grid grid-cols-2 p-2 gap-2">
-            <NumericalInputField label="Elevation" bind:value={aerodrome_elevation_ft} unit="ft"></NumericalInputField>
-            <NumericalInputField label="Ground Temperature" bind:value={aerodrome_ground_temperature_degC} unit="°C"></NumericalInputField>
-
-            <NumericalOutputLabel label="ISA Devation" value={Math.round(isaDeviation(aerodrome_elevation_ft, aerodrome_ground_temperature_degC))} unit="°C"></NumericalOutputLabel>
-
-            {#if isaDeviation(aerodrome_elevation_ft, aerodrome_ground_temperature_degC) > 0}
-            <div class="text-error-700-300 border-2 border-error-300-700 col-span-2">
-                Calculations are only possible for aerodrome ground temperatures colder than ISA!
-            </div>
-            {/if}
-
-            <label class="label col-span-2">
-                <Switch>
-                    <Switch.Control>
-                        <Switch.Thumb />
-                    </Switch.Control>
-                    <Switch.Label>Advanced Options</Switch.Label>
-                    <Switch.HiddenInput />
-                </Switch>
-            </label>
-        </div>
-    </div>
+    <AerodromeInput 
+        bind:aerodrome_elevation_ft={aerodrome_elevation_ft} 
+        bind:aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
+        bind:isInputValid={isAerodromeInputValid}>
+    </AerodromeInput>
     
 
     <div class="col-span-4 lg:col-span-1 border-b-4 lg:border-r-2 lg:border-b-0 border-secondary-700-300"> 
@@ -64,7 +45,8 @@
             <AltitudeCorrection 
                 label="IAF" 
                 aerodrome_elevation_ft={aerodrome_elevation_ft} 
-                aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}>
+                aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
+                isInputValid={isAerodromeInputValid}>
             </AltitudeCorrection>
 
             <NumericalInputField label="FAF / FDP" value="" unit="ft"></NumericalInputField>
