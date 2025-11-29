@@ -145,6 +145,20 @@ Using the [mathjs](https://mathjs.org/) evaluation parser we can compare the act
 
 ## Validation / Debugging of the Calculations
 
+### Crossverification against two other implementations
+
+Unit test examples were generated using two other implementations done by myself but in R and once using the ESDU equation described above 
+and also using an alternative equation, these were also used to generate some test points for the unit tests:
+[/doc/validation-implementation/temperature-correction.R](https://github.com/fvalka/flight-cold-temperature-correction/blob/21d2b78d73f30d150f2859dae0b474c6bad3b37b/doc/validation-implementation/temperature-correction.R)
+
+### Manual generation of unit test examples
+
+Unit test examples were manually created based on a third equation from the [Transport Canada AC 500-200, section 4.8 "Acccurate Method"](https://tc.canada.ca/en/aviation/reference-centre/advisory-circulars/advisory-circular-ac-no-500-020#toc4-8)
+
+Further manual examples were created for unit tests of the flight path angle calculation. 
+
+### Equations and Calculation Parmaters on the Dev Console 
+
 All the equations used and their input parameters are logged to the console on debug level. 
 
 To verify or debug the calculations open the dev console, set the console log levels to "Verbose" and then look for the folliwng messages:
