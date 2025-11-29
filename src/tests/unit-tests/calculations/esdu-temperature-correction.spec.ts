@@ -1,6 +1,6 @@
 import { altitudeCorrectionESDU } from '$lib/calculations/temperature-correction/esdu-temperature-correction.svelte';
 import { unit } from 'mathjs';
-import { describe, it, expect, test } from 'vitest';
+import { expect, test } from 'vitest';
 
 
 test.each([

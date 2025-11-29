@@ -15,7 +15,7 @@
 
     let input_flight_path_angle_deg: number | null = $state(null);
 
-    let is_faf_altitude_valid = $derived.by(() => isValidNumber(faf_altitude_ft) && faf_altitude_ft >= aerodrome_elevation_ft)
+    let is_faf_altitude_valid = $derived.by(() => isValidNumber(faf_altitude_ft) && faf_altitude_ft > aerodrome_elevation_ft)
 
     function flightPathAngleCorrectedFormatted(input_flight_path_angle: any) {
         if (
@@ -27,7 +27,7 @@
             return undefined;
         }
 
-        if (faf_altitude_ft < aerodrome_elevation_ft) {
+        if (faf_altitude_ft <= aerodrome_elevation_ft) {
             return undefined;
         }
 
