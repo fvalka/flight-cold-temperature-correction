@@ -1,5 +1,5 @@
 import { altitudeCorrectionESDU } from '$lib/calculations/temperature-correction/esdu-temperature-correction.svelte';
-import { unit } from 'mathjs';
+import { abs, unit } from 'mathjs';
 import { expect, test } from 'vitest';
 
 
@@ -59,4 +59,54 @@ test.each([
 
 
         expect(corrected_altitude_ft).toBeCloseTo(transportCanadaACResult, 0.1);
+    })
+
+test.each([
+    { aerodrome_elevation_ft:0, ground_temperature_degC: 50, input_altitude_m: 300, assertion_corrected_altitude_m: 300-37 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: 40, input_altitude_m: 300, assertion_corrected_altitude_m: 300-26 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: 30, input_altitude_m: 300, assertion_corrected_altitude_m: 300-16 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: 20, input_altitude_m: 300, assertion_corrected_altitude_m: 300-5 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: 10, input_altitude_m: 300, assertion_corrected_altitude_m: 300+5 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: 0, input_altitude_m: 300, assertion_corrected_altitude_m: 300+16 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: -10, input_altitude_m: 300, assertion_corrected_altitude_m: 300+26 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: -20, input_altitude_m: 300, assertion_corrected_altitude_m: 300+37 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: -30, input_altitude_m: 300, assertion_corrected_altitude_m: 300+47 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: -40, input_altitude_m: 300, assertion_corrected_altitude_m: 300+57 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: -50, input_altitude_m: 300, assertion_corrected_altitude_m: 300+68 },
+
+    { aerodrome_elevation_ft:0, ground_temperature_degC: 50, input_altitude_m:  900, assertion_corrected_altitude_m: 900-110 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: 40, input_altitude_m:  900, assertion_corrected_altitude_m: 900-79 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: 30, input_altitude_m:  900, assertion_corrected_altitude_m: 900-47 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: 20, input_altitude_m:  900, assertion_corrected_altitude_m: 900-16 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: 10, input_altitude_m:  900, assertion_corrected_altitude_m: 900+16 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: 0, input_altitude_m:   900, assertion_corrected_altitude_m: 900+47 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: -10, input_altitude_m: 900, assertion_corrected_altitude_m: 900+79 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: -20, input_altitude_m: 900, assertion_corrected_altitude_m: 900+110 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: -30, input_altitude_m: 900, assertion_corrected_altitude_m: 900+142 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: -40, input_altitude_m: 900, assertion_corrected_altitude_m: 900+174 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: -50, input_altitude_m: 900, assertion_corrected_altitude_m: 900+205 },
+
+    { aerodrome_elevation_ft:0, ground_temperature_degC: 50, input_altitude_m:  1500, assertion_corrected_altitude_m: 1500-185 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: 40, input_altitude_m:  1500, assertion_corrected_altitude_m: 1500-132 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: 30, input_altitude_m:  1500, assertion_corrected_altitude_m: 1500-79 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: 20, input_altitude_m:  1500, assertion_corrected_altitude_m: 1500-26 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: 10, input_altitude_m:  1500, assertion_corrected_altitude_m: 1500+26 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: 0, input_altitude_m:   1500, assertion_corrected_altitude_m: 1500+79 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: -10, input_altitude_m: 1500, assertion_corrected_altitude_m: 1500+132 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: -20, input_altitude_m: 1500, assertion_corrected_altitude_m: 1500+185 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: -30, input_altitude_m: 1500, assertion_corrected_altitude_m: 1500+238 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: -40, input_altitude_m: 1500, assertion_corrected_altitude_m: 1500+291 },
+    { aerodrome_elevation_ft:0, ground_temperature_degC: -50, input_altitude_m: 1500, assertion_corrected_altitude_m: 1500+344 },
+])('Comparing the results to the ICAO Doc 8168 Volume II, Seventh edition 2020, table III-3-4-App A1 ' + 
+    'for 0 ft aerodrome elevation, aerodrome_temperature_degC: $aerodrome_temperature_degC input_altitude_m: $input_altitude_m ' + 
+    'assertion_corrected_altitude_m: $assertion_corrected_altitude_m',
+    ({aerodrome_elevation_ft, ground_temperature_degC, input_altitude_m, assertion_corrected_altitude_m}) => {
+        const aerodrome_elevation = unit(aerodrome_elevation_ft, "ft");
+        const aerodrome_ground_temperature = unit(ground_temperature_degC, "degC");
+        const input_altitude = unit(input_altitude_m, "m");
+
+        const corrected_altitude = altitudeCorrectionESDU(input_altitude, aerodrome_elevation, aerodrome_ground_temperature);
+        const corrected_altitude_ft = corrected_altitude.toNumber("m");
+
+        expect(abs(corrected_altitude_ft - assertion_corrected_altitude_m)).toBeLessThan(1.0);
     })
