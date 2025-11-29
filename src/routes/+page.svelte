@@ -101,7 +101,7 @@
             <h3 class="font-semibold w-full text-center mt-3 text-secondary-700-300">Climb</h3>
             <div class="w-full max-w-sm p-2 gap-2 grid grid-cols-2">
                 <ClimbGradientCorrection
-                    label="FPA" 
+                    label="Gradient" 
                     aerodrome_elevation_ft={aerodrome_elevation_ft} 
                     aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
                     altitude_climb_to_ft={altitude_climb_to_ft}
