@@ -31,7 +31,7 @@
             </p>
 
             <p class="border-2 border-warning-300-700 text-warning-900-100 p-2 font-semibold mt-2 mb-2">
-                Use at your own risk! Not for operational use!
+                Use at your own risk! 
             </p>
         </div>
 
