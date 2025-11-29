@@ -10,6 +10,10 @@ ___
 
 ## Introduction
 
+### Cold Temperature Corrections
+
+To be added
+
 ### Flight Path Angle
 
 The Flight Path Angle is the angle between the horizontal (ground) and the velocity vector relative to the ground.
@@ -46,7 +50,17 @@ Which is also where the rule of thumb comes from that for descending on a 3° gl
     \tan(3^{\circ}) \cdot 1\; \mathrm{kt} \approx 0.05241\; \mathrm{kt} \approx 5.3\; \mathrm{\frac{ft}{min}}
 ```
 
-## Calculation Method
+#### Cold Temperature Corrections
+
+When flight path angle is determined based on the change in barometric altitude or barometric vertical speed it will also be subject to altimetry errors caused by the 
+off-standard temperature of the atmosphere. 
+
+![Flight path angle cold temperature corrections](/doc/introduction/flight-path-angle/flight-path-angle-temperature-corrections.png)
+
+Therefore we can see that after correction the approach path seems steeper based on the instrumentation of the aircraft while the actual approach path is now following the intended flight path angle. 
+
+
+## Calculation Methods
 
 ### Inputs
 
@@ -54,6 +68,8 @@ As inputs we use:
 - the aerodrome elevation, $h_{Aerodrome}$, in ft.
 - the temperature on the ground at the aerodrome, $T_{Aerodrome}$, in $°C$
 - the altitude (above MSL) which we want to correct, $z_{Airplane}$, in $ft$
+- the flight path angle which we want to correct, $\gamma_{Approach}$, in $°$
+- the climb gradient which want to correct, $\bar{\gamma}_{Climb}$, in $°$
 
 ### ISA Deviation 
 
