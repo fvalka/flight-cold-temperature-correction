@@ -7,6 +7,7 @@
   import NumericalOutputLabel from '../lib/components/data-display/NumericalOutputLabel.svelte';
     import ResetAllInputs from '$lib/components/ResetAllInputs.svelte';
     import FlightPathAngleCorrection from '$lib/components/FlightPathAngleCorrection.svelte';
+    import ClimbGradientCorrection from '$lib/components/ClimbGradientCorrection.svelte';
 
 
   let aerodrome_elevation_ft: number | null = $state(null);
@@ -14,6 +15,7 @@
   let isAerodromeInputValid = $state(false);
 
   let faf_altitude_ft: number | null = $state(null);
+  let altitude_climb_to_ft: number | null = $state(null);
 
 </script>
 <div class="lg:flex lg:flex-row lg:min-h-screen lg:justify-center lg:place-items-start bg-gradient-to-br from-surface-600 to-secondary-800 dark:from-surface-900 dark:to-surface-950">
@@ -88,6 +90,7 @@
             <h3 class="font-semibold w-full text-center mt-3 text-secondary-700-300">Altitudes</h3>
             <div class="w-full max-w-sm p-2 gap-2 grid grid-cols-2">
                 <AltitudeCorrection 
+                    bind:input_altitude_ft={altitude_climb_to_ft}
                     label="Altitude" 
                     aerodrome_elevation_ft={aerodrome_elevation_ft} 
                     aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
@@ -97,9 +100,13 @@
 
             <h3 class="font-semibold w-full text-center mt-3 text-secondary-700-300">Climb</h3>
             <div class="w-full max-w-sm p-2 gap-2 grid grid-cols-2">
-                
-                <NumericalInputField label="Climb Gradient" value="" unit="%"></NumericalInputField>
-                <NumericalOutputLabel label="Corrected Climb Gradient" value="" unit="%"></NumericalOutputLabel>
+                <ClimbGradientCorrection
+                    label="FPA" 
+                    aerodrome_elevation_ft={aerodrome_elevation_ft} 
+                    aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
+                    altitude_climb_to_ft={altitude_climb_to_ft}
+                    isInputValid={isAerodromeInputValid}>
+                </ClimbGradientCorrection>
             </div>
         </div>
 
