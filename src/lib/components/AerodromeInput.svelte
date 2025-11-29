@@ -63,20 +63,24 @@
 
     
     function calculateIsaDeviationFormatted() {
-        console.log("Calculating is deviation");
-        if (
-            !isValidNumber(aerodrome_elevation_ft) ||
-            !isValidNumber(aerodrome_ground_temperature_degC)
-        ) {
-            return NaN;
-        }
+        try {
+            if (
+                !isValidNumber(aerodrome_elevation_ft) ||
+                !isValidNumber(aerodrome_ground_temperature_degC)
+            ) {
+                return NaN;
+            }
 
-        return Math.round(
-            isaDeviation(
-                unit(aerodrome_elevation_ft, "ft"),
-                unit(aerodrome_ground_temperature_degC, "degC"),
-            ).toNumber("degC"),
-        );
+            return Math.round(
+                isaDeviation(
+                    unit(aerodrome_elevation_ft, "ft"),
+                    unit(aerodrome_ground_temperature_degC, "degC"),
+                ).toNumber("degC"),
+            );
+        } catch (e: any) {
+            console.error(e);
+            return undefined;
+        }
     }
 
 </script>

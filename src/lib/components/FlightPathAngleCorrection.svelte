@@ -43,27 +43,32 @@
         }
 
     function flightPathAngleCorrectedFormatted(input_flight_path_angle: any) {
-        if(!is_input_valid) {
-            return undefined
-        }
-        if (
-            !isValidNumber(input_flight_path_angle_deg) ||
-            !isValidNumber(faf_altitude_ft) ||
-            !isValidNumber(aerodrome_elevation_ft) ||
-            !isValidNumber(aerodrome_ground_temperature_degC)
-        ) {
+        try {
+            if(!is_input_valid) {
+                return undefined
+            }
+            if (
+                !isValidNumber(input_flight_path_angle_deg) ||
+                !isValidNumber(faf_altitude_ft) ||
+                !isValidNumber(aerodrome_elevation_ft) ||
+                !isValidNumber(aerodrome_ground_temperature_degC)
+            ) {
+                return undefined;
+            }
+
+            if (faf_altitude_ft <= aerodrome_elevation_ft) {
+                return undefined;
+            }
+
+            const corrected_flight_path_angle = flightPathAngleCorrection(unit(input_flight_path_angle, "deg"), unit(faf_altitude_ft, "ft"), 
+                unit(aerodrome_elevation_ft, "ft"), unit(aerodrome_ground_temperature_degC, "degC"));
+
+
+            return round(corrected_flight_path_angle.toNumber("deg"), 1).toFixed(1);
+        } catch(e) {
+            console.error(e);
             return undefined;
         }
-
-        if (faf_altitude_ft <= aerodrome_elevation_ft) {
-            return undefined;
-        }
-
-        const corrected_flight_path_angle = flightPathAngleCorrection(unit(input_flight_path_angle, "deg"), unit(faf_altitude_ft, "ft"), 
-            unit(aerodrome_elevation_ft, "ft"), unit(aerodrome_ground_temperature_degC, "degC"));
-
-
-        return round(corrected_flight_path_angle.toNumber("deg"), 1).toFixed(1);
     }
 </script>
 

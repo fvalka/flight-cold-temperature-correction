@@ -21,25 +21,31 @@
         altitude_climb_to_ft <= 36000);
 
     function climbGradientCorrectedFormatted(input_climb_gradient: any) {
-        if (
-            !isValidNumber(inpunt_climb_gradient) ||
-            !isValidNumber(altitude_climb_to_ft) ||
-            !isValidNumber(aerodrome_elevation_ft) ||
-            !isValidNumber(aerodrome_ground_temperature_degC) ||
-            inpunt_climb_gradient === null
-        ) {
+        try {
+            if (
+                !isValidNumber(inpunt_climb_gradient) ||
+                !isValidNumber(altitude_climb_to_ft) ||
+                !isValidNumber(aerodrome_elevation_ft) ||
+                !isValidNumber(aerodrome_ground_temperature_degC) ||
+                inpunt_climb_gradient === null
+            ) {
+                return undefined;
+            }
+
+            if (altitude_climb_to_ft < aerodrome_elevation_ft) {
+                return undefined;
+            }
+
+            const corrected_climb_gradient = climbGradientCorrection(inpunt_climb_gradient/100, 
+                unit(altitude_climb_to_ft, "ft"), unit(aerodrome_elevation_ft, "ft"), unit(aerodrome_ground_temperature_degC, "degC"));
+
+
+            return ceil(corrected_climb_gradient * 100, 1).toFixed(1);
+                
+        } catch (e) {
+            console.error(e);
             return undefined;
         }
-
-        if (altitude_climb_to_ft < aerodrome_elevation_ft) {
-            return undefined;
-        }
-
-        const corrected_climb_gradient = climbGradientCorrection(inpunt_climb_gradient/100, 
-            unit(altitude_climb_to_ft, "ft"), unit(aerodrome_elevation_ft, "ft"), unit(aerodrome_ground_temperature_degC, "degC"));
-
-
-        return ceil(corrected_climb_gradient * 100, 1).toFixed(1);
     }
 </script>
 

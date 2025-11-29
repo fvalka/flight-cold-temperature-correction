@@ -17,10 +17,7 @@
         let corrected_altitiude_at_faf = altitudeCorrectionESDU(uncorrected_altitude_at_faf, aerodrome_elevation, aerodrome_ground_temperature);
 
         if (compareNatural(corrected_altitiude_at_faf, uncorrected_altitude_at_faf,) < 0) {
-            console.error(
-                "The corrected altitude at the FAF/FDP needs to be at or above the uncorrected altitude. ",
-            );
-            return unit(NaN);
+            throw new Error("The corrected altitude at the FAF/FDP needs to be at or above the uncorrected altitude. ");
         }
 
         let hCorrected = subtract(corrected_altitiude_at_faf, aerodrome_elevation);

@@ -20,13 +20,11 @@
    */
   export function altitudeCorrectionESDU(input_altitude: Unit, aerodrome_elevation: Unit, aerodrome_ground_temperature: Unit) {
       if (compareNatural(input_altitude, aerodrome_elevation) < 0) {
-        console.error("The altitude to be corrected needs to be above the aerodrome elevation!");
-        return unit(NaN);
+        throw new Error("The altitude to be corrected needs to be above the aerodrome elevation!");
       }
 
       if (compareNatural(input_altitude, unit(36000, "ft")) > 0 ) {
-        console.error("This equation is only valid for altitudes up to the ISA tropopause!")
-        return unit(NaN);
+        throw new Error("This equation is only valid for altitudes up to the ISA tropopause!");
       } 
 
       let input_height = subtract(input_altitude, aerodrome_elevation);

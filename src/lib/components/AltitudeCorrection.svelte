@@ -17,7 +17,6 @@
   let is_input_valid = $state(false);
 
   function validateInput() {
-        console.log("validating input!");
         inputErrors = [];
 
         // Short circuiting errors 
@@ -39,31 +38,36 @@
     }
 
   function altitudeCorrectionFormatted(input_altitude_ft: any) {
-    if(!is_input_valid) {
+    try {
+      if(!is_input_valid) {
+        return undefined;
+      }
+
+      if (
+        !isValidNumber(input_altitude_ft) ||
+        !isValidNumber(aerodrome_elevation_ft) ||
+        !isValidNumber(aerodrome_ground_temperature_degC)
+      ) {
+        return undefined;
+      }
+
+      if (input_altitude_ft < aerodrome_elevation_ft) {
+        return undefined;
+      }
+
+      const result = Math.ceil(
+        altitudeCorrectionESDU(
+          unit(input_altitude_ft, "ft"),
+          unit(aerodrome_elevation_ft, "ft"),
+          unit(aerodrome_ground_temperature_degC, "degC"),
+        ).toNumber("ft"),
+      );
+
+      return result;
+    } catch (e: any) {
+      console.error(e);
       return undefined;
     }
-
-    if (
-      !isValidNumber(input_altitude_ft) ||
-      !isValidNumber(aerodrome_elevation_ft) ||
-      !isValidNumber(aerodrome_ground_temperature_degC)
-    ) {
-      return undefined;
-    }
-
-    if (input_altitude_ft < aerodrome_elevation_ft) {
-      return undefined;
-    }
-
-    const result = Math.ceil(
-      altitudeCorrectionESDU(
-        unit(input_altitude_ft, "ft"),
-        unit(aerodrome_elevation_ft, "ft"),
-        unit(aerodrome_ground_temperature_degC, "degC"),
-      ).toNumber("ft"),
-    );
-
-    return result;
   }
 </script>
 
