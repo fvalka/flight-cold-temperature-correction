@@ -8,6 +8,44 @@ THIS SOFTWARE IS NOT CERTIFIED OR APPROVED FOR ANY OPERATIONAL USE!
 USE PURELY AT YOUR OWN RISK!
 ___
 
+## Introduction
+
+### Flight Path Angle
+
+The Flight Path Angle is the angle between the horizontal (ground) and the velocity vector relative to the ground.
+
+The velocity vector relative to the ground can be split up into two components: <br>
+Horizontal (parallel) to the ground with it’s length being the: Groundspeed <br>
+Vertical (perpendicular) to the ground with it’s length being the: Vertical speed
+
+![Flight path angle explanation based on groundspeed and vertical speed](doc/introduction/flight-path-angle/flight-path-angle-introduction.png)
+
+Drawing just the lengths of the vectors as a triangle we get:
+
+![Flight path angle triangle](/doc/introduction/flight-path-angle/flight-path-angle-triangle.png)
+
+Therefore we can calculate the Flight Path Angle from the Vertical Speed and Ground Speed using the arctan (inverse of the tangent function) making sure that we first convert them to the same units
+```math
+    \tan\left({\text{Flight Path Angle}}\right) = \frac{\text{Vertical speed}}{\text{Ground speed}}
+    \implies  {\text{Flight Path Angle}} = \arctan \left( \frac{\text{Vertical speed}}{\text{Ground speed}} \right)
+```
+
+For example with a Groundspeed of 100 kt and a Vertical speed of 500 ft/min we get after conversion to SI units:
+
+```math
+    \text{Flight Path Angle} = 
+    \arctan \left( \frac{500 \mathrm{\frac{ft}{min}}}{100 \mathrm{kt}} \right) 
+    = 
+    \arctan \left( \frac{2.54 \mathrm{\frac{m}{s}}}{51.44 \mathrm{\frac{m}{s}}} \right)    
+    \approx 2.8^{\circ}
+```
+
+Which is also where the rule of thumb comes from that for descending on a 3° glide path you take the ground speed * 5 or ground speed * 10/2 since when we calculate the vertical speed for 1 kt of groundspeed we get:
+
+```math
+    \tan(3^{\circ}) \cdot 1\; \mathrm{kt} \approx 0.05241\; \mathrm{kt} \approx 5.3\; \mathrm{\frac{ft}{min}}
+```
+
 ## Calculation Method
 
 ### Inputs
