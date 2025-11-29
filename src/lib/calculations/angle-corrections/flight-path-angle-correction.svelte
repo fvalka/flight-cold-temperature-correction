@@ -2,6 +2,7 @@
     import {
         compareNatural,
         parse,
+        subtract,
         Unit,
         unit
     } from "mathjs";
@@ -22,10 +23,13 @@
             return unit(NaN);
         }
 
+        let hCorrected = subtract(corrected_altitiude_at_faf, aerodrome_elevation);
+        let hUncorrected = subtract(uncorrected_altitude_at_faf, aerodrome_elevation);
+
         const calculation_parameters = {
             gammaUncorrected: uncorrect_flight_path_angle.to("deg"),
-            hCorrected: corrected_altitiude_at_faf.to("ft"),
-            hUncorrected: uncorrected_altitude_at_faf.to("ft")
+            hCorrected: hCorrected.to("ft"),
+            hUncorrected: hUncorrected.to("ft")
         };
 
         console.debug( "Performing the flight path angle correction using the equation: %s", equation_node.toString());
