@@ -81,7 +81,7 @@ As inputs we use:
 - the temperature on the ground at the aerodrome, $T_{Aerodrome}$, in $°C$
 - the altitude (above MSL) which we want to correct, $z_{Airplane}$, in $ft$
 - the flight path angle which we want to correct, $\gamma_{Approach}$, in $°$
-- the climb gradient which want to correct, $\bar{\gamma}_{Climb}$, in $°$
+- the climb gradient which want to correct, $\bar{\gamma}_{Climb}$, in $%$
 
 ### ISA Deviation 
 
@@ -138,6 +138,20 @@ Using the [mathjs](https://mathjs.org/) evaluation parser we can compare the act
 
 ```math
 \tan^{-1}\left(\frac{\tan\left( gammaUncorrected\right)\cdot hCorrected}{ hUncorrected}\right)
+```
+
+### Climb Gradient Correction
+
+The climb gradient is corrected by converting the climb gradient into a flight path angle using the equation:
+
+```math
+\gamma_{Climb} = \arctan \left( \frac{\gamma'_{Climb}}{100} \right)
+```
+
+This flight path angle is then corrected as described for the flight path angle and converted back into a gradient using 
+
+```math
+\gamma_{Climb,corrected} = \tan \left( \gamma'_{Climb,corrected} \right) \cdot 100
 ```
 
 ### Assumptions
