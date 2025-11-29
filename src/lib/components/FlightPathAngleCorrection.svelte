@@ -10,7 +10,7 @@
         aerodrome_elevation_ft,
         aerodrome_ground_temperature_degC,
         faf_altitude_ft,
-        isInputValid: is_output_enabled
+        is_output_enabled
     } = $props();
 
     let input_flight_path_angle_deg: number | null = $state(null);

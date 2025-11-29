@@ -53,7 +53,7 @@
                     label="IAF" 
                     aerodrome_elevation_ft={aerodrome_elevation_ft} 
                     aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
-                    isInputValid={isAerodromeInputValid}>
+                    is_output_enabled={isAerodromeInputValid}>
                 </AltitudeCorrection>
 
                 <AltitudeCorrection 
@@ -61,14 +61,14 @@
                     label="FAF / FDP" 
                     aerodrome_elevation_ft={aerodrome_elevation_ft} 
                     aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
-                    isInputValid={isAerodromeInputValid}>
+                    is_output_enabled={isAerodromeInputValid}>
                 </AltitudeCorrection>
 
                 <AltitudeCorrection 
                     label="DA / MDA" 
                     aerodrome_elevation_ft={aerodrome_elevation_ft} 
                     aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
-                    isInputValid={isAerodromeInputValid}>
+                    is_output_enabled={isAerodromeInputValid}>
                 </AltitudeCorrection>
             </div>
 
@@ -79,7 +79,7 @@
                     aerodrome_elevation_ft={aerodrome_elevation_ft} 
                     aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
                     faf_altitude_ft={faf_altitude_ft}
-                    isInputValid={isAerodromeInputValid}>
+                    is_output_enabled={isAerodromeInputValid}>
                 </FlightPathAngleCorrection>
             </div>
         </div>
@@ -94,7 +94,7 @@
                     label="Altitude" 
                     aerodrome_elevation_ft={aerodrome_elevation_ft} 
                     aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
-                    isInputValid={isAerodromeInputValid}>
+                    is_output_enabled={isAerodromeInputValid}>
                 </AltitudeCorrection>
             </div>
 
@@ -105,7 +105,7 @@
                     aerodrome_elevation_ft={aerodrome_elevation_ft} 
                     aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
                     altitude_climb_to_ft={altitude_climb_to_ft}
-                    isInputValid={isAerodromeInputValid}>
+                    is_output_enabled={isAerodromeInputValid}>
                 </ClimbGradientCorrection>
             </div>
         </div>
@@ -120,49 +120,49 @@
                     label="Input" 
                     aerodrome_elevation_ft={aerodrome_elevation_ft} 
                     aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
-                    isInputValid={isAerodromeInputValid}>
+                    is_output_enabled={isAerodromeInputValid}>
                 </AltitudeCorrection>
 
                 <AltitudeCorrection 
                     label="" 
                     aerodrome_elevation_ft={aerodrome_elevation_ft} 
                     aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
-                    isInputValid={isAerodromeInputValid}>
+                    is_output_enabled={isAerodromeInputValid}>
                 </AltitudeCorrection>
 
                 <AltitudeCorrection 
                     label="" 
                     aerodrome_elevation_ft={aerodrome_elevation_ft} 
                     aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
-                    isInputValid={isAerodromeInputValid}>
+                    is_output_enabled={isAerodromeInputValid}>
                 </AltitudeCorrection>
 
                 <AltitudeCorrection 
                     label="" 
                     aerodrome_elevation_ft={aerodrome_elevation_ft} 
                     aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
-                    isInputValid={isAerodromeInputValid}>
+                    is_output_enabled={isAerodromeInputValid}>
                 </AltitudeCorrection>
 
                 <AltitudeCorrection 
                     label="" 
                     aerodrome_elevation_ft={aerodrome_elevation_ft} 
                     aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
-                    isInputValid={isAerodromeInputValid}>
+                    is_output_enabled={isAerodromeInputValid}>
                 </AltitudeCorrection>
 
                 <AltitudeCorrection 
                     label="" 
                     aerodrome_elevation_ft={aerodrome_elevation_ft} 
                     aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
-                    isInputValid={isAerodromeInputValid}>
+                    is_output_enabled={isAerodromeInputValid}>
                 </AltitudeCorrection>
 
                 <AltitudeCorrection 
                     label="" 
                     aerodrome_elevation_ft={aerodrome_elevation_ft} 
                     aerodrome_ground_temperature_degC={aerodrome_ground_temperature_degC}
-                    isInputValid={isAerodromeInputValid}>
+                    is_output_enabled={isAerodromeInputValid}>
                 </AltitudeCorrection>
             </div>
 

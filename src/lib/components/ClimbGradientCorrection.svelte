@@ -10,12 +10,15 @@
         aerodrome_elevation_ft,
         aerodrome_ground_temperature_degC,
         altitude_climb_to_ft,
-        isInputValid
+        is_output_enabled
     } = $props();
 
     let inpunt_climb_gradient: number | null = $state(null);
 
-    let is_altitude_climb_to_valid = $derived.by(() => isValidNumber(altitude_climb_to_ft) && altitude_climb_to_ft >= aerodrome_elevation_ft)
+    let is_altitude_climb_to_valid = $derived.by(() => isValidNumber(altitude_climb_to_ft) && 
+        altitude_climb_to_ft >= aerodrome_elevation_ft &&
+        altitude_climb_to_ft >= -1000 &&
+        altitude_climb_to_ft <= 36000);
 
     function climbGradientCorrectedFormatted(input_climb_gradient: any) {
         if (
@@ -46,7 +49,7 @@
   label={label == "" ? "" : "Corrected " + label}
   value={climbGradientCorrectedFormatted(inpunt_climb_gradient)}
   unit="%"
-  isInputValid={ isInputValid }
+  isInputValid={ is_output_enabled }
 ></NumericalOutputLabel>
 
 {#if isValidNumber(inpunt_climb_gradient) && !is_altitude_climb_to_valid} 

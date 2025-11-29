@@ -9,7 +9,7 @@
     label,
     aerodrome_elevation_ft,
     aerodrome_ground_temperature_degC,
-    isInputValid: is_output_enabled,
+    is_output_enabled,
     input_altitude_ft = $bindable(undefined),
   } = $props();
 
