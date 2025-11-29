@@ -25,16 +25,12 @@
           is_input_valid = false;
           return;
         }
-        if(input_altitude_ft < aerodrome_elevation_ft) {
-          is_input_valid = false;
-          return;
-        }
 
         if (input_altitude_ft > 36000) {
             inputErrors.push("Please input a valid altitude of 36000ft or less!");
         }
 
-        if (aerodrome_elevation_ft < -1000) {
+        if (input_altitude_ft < -1000) {
             inputErrors.push("Please enter a valid altitude!")
         }
 

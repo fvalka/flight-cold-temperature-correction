@@ -10,14 +10,42 @@
         aerodrome_elevation_ft,
         aerodrome_ground_temperature_degC,
         faf_altitude_ft,
-        isInputValid
+        isInputValid: is_output_enabled
     } = $props();
 
     let input_flight_path_angle_deg: number | null = $state(null);
+    
+    let is_faf_altitude_valid = $derived.by(() => isValidNumber(faf_altitude_ft) && 
+        faf_altitude_ft > aerodrome_elevation_ft &&
+        faf_altitude_ft >= -1000 &&
+        faf_altitude_ft <= 36000);
 
-    let is_faf_altitude_valid = $derived.by(() => isValidNumber(faf_altitude_ft) && faf_altitude_ft > aerodrome_elevation_ft)
+    let inputErrors: string[] = $state([]);
+    let is_input_valid = $state(false);
+
+    function validateInput() {
+            console.log("validating input!");
+            inputErrors = [];
+
+            // Short circuiting errors 
+            if (!isValidNumber(input_flight_path_angle_deg) ||
+                input_flight_path_angle_deg === null) {
+                is_input_valid = false;
+                return;
+            }
+
+            if (Math.abs(input_flight_path_angle_deg) > 45) {
+                inputErrors.push("Please enter a valid flight path angle!")
+            }
+
+            is_input_valid = inputErrors.length == 0;
+
+        }
 
     function flightPathAngleCorrectedFormatted(input_flight_path_angle: any) {
+        if(!is_input_valid) {
+            return undefined
+        }
         if (
             !isValidNumber(input_flight_path_angle_deg) ||
             !isValidNumber(faf_altitude_ft) ||
@@ -39,13 +67,18 @@
     }
 </script>
 
-<NumericalInputField {label} bind:value={input_flight_path_angle_deg} unit="°" step="0.1"
+<NumericalInputField 
+    {label} 
+    bind:value={input_flight_path_angle_deg} 
+    unit="°" 
+    step="0.1"
+    oninput={validateInput}
 ></NumericalInputField>
 <NumericalOutputLabel
   label={label == "" ? "" : "Corrected " + label}
   value={flightPathAngleCorrectedFormatted(input_flight_path_angle_deg)}
   unit="°"
-  isInputValid={ isInputValid }
+  isInputValid={ is_output_enabled && is_input_valid }
 ></NumericalOutputLabel>
 
 {#if isValidNumber(input_flight_path_angle_deg) && !is_faf_altitude_valid} 
@@ -55,3 +88,11 @@
     Please enter a valid FAF altitude above to calculate the FPA!
 </div>
 {/if}
+
+{#each inputErrors as inputErrorMessage} 
+    <div
+        class="text-error-700-300 border-2 border-error-300-700 col-span-2 rounded p-1"
+    >
+        { inputErrorMessage }
+    </div>
+{/each}
