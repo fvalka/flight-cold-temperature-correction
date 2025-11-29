@@ -12,8 +12,8 @@
   let isAerodromeInputValid = $state(false);
 
 </script>
-<div class="lg:flex lg:flex-row lg:min-h-screen lg:justify-center lg:place-items-start bg-gradient-to-br from-surface-600 to-secondary-700 dark:from-surface-900 dark:to-surface-950">
-    <div class="bg-white dark:bg-surface-800 w-full grid grid-cols-4 max-w-md lg:max-w-7xl gap-4 p-4 lg:border-gray-200 lg:shadow-2xl 2xl:ml-5 2xl:mt-5">
+<div class="lg:flex lg:flex-row lg:min-h-screen lg:justify-center lg:place-items-start bg-gradient-to-br from-surface-600 to-secondary-800 dark:from-surface-900 dark:to-surface-950">
+    <div class="bg-white dark:bg-surface-950 w-full grid grid-cols-4 max-w-md lg:max-w-7xl gap-4 p-4 lg:border-gray-200 lg:shadow-2xl 2xl:ml-5 2xl:mt-5">
         <div class="col-span-4 border-b-1 border-b-surface-100-900">
             <h1 class="text-2xl font-bold mb-3 text-primary-800-200">
                 Cold Temperature Altitude Correction
