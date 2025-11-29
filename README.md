@@ -110,10 +110,31 @@ where we then use the following physical quanitites in the calculation of the he
 ```math
 \Delta h_{correction} = \frac{-\Delta T_{std}}{L_0} \ln \left( 1 + \frac{L_0 \Delta hP_{Airplane}}{T_0 + L_0 hP_{Aerodrome}} \right)
 ```
+#### MathJS Implementation toTex
 
 Using the [mathjs](https://mathjs.org/) evaluation parser we can compare the actual equation in the actual program code used to the equation described above:
+
 ```math
 \left(\frac{- DeltaTstd}{ L0}\right)\cdot\ln\left(1+\frac{\left( L0\cdot hPAirplane\right)}{\left( T0+ L0\cdot hPAerodrome\right)}\right)
+```
+
+### Flight Path Angle Correction
+
+Based on the explanations of the flight path angle a correction equation can also be derived. 
+
+First we take the uncorrected altitude at the Final Approach Fix/Final Descent point, $h_{FAF,uncorrected}$ 
+and calculate the corrected altitude at the FAF/FDP, $h_{FAF,corrected}$, using the equation described above.
+
+```math
+\gamma_{corrected} = \arctan \left( \tan(\gamma_{uncorrected}) \frac{h_{FAF,corrected}}{h_{FAF,uncorrected}} \right)
+```
+
+#### MathJS Implementation toTex
+
+Using the [mathjs](https://mathjs.org/) evaluation parser we can compare the actual equation in the actual program code used to the equation described above:
+
+```math
+\tan^{-1}\left(\frac{\tan\left( gammaUncorrected\right)\cdot hCorrected}{ hUncorrected}\right)
 ```
 
 ### Assumptions
