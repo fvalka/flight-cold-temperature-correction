@@ -1,6 +1,9 @@
 # Cold Temperature Altitude Correction Calculator
 
 Calculates the cold temperature correction for altitudes measured using a barometric altimeter. The correction is based upon the elevation of the aerodrome and temperature measured at the aerodrome on the ground.
+
+**The calculator is available online at:<br>
+[➡ https://fvalka.github.io/flight-cold-temperature-correction/](https://fvalka.github.io/flight-cold-temperature-correction/)**
 ___ 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
