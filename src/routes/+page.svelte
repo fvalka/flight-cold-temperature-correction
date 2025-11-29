@@ -5,6 +5,7 @@
 
   import NumericalInputField from "$lib/components/data-display/NumericalInputField.svelte";
   import NumericalOutputLabel from '../lib/components/data-display/NumericalOutputLabel.svelte';
+    import ResetAllInputs from '$lib/components/ResetAllInputs.svelte';
 
 
   let aerodrome_elevation_ft: number | null = $state(null);
@@ -151,10 +152,13 @@
             </div>
 
         </div>
-
         
-        <div class="col-span-4">
-            <p>            
+        <div class="col-span-4 lg:col-span-2">
+            <ResetAllInputs></ResetAllInputs>
+        </div>
+        
+        <div class="col-span-4 lg:col-span-2 lg:text-right">
+            <p>     
                 <a class="btn preset-tonal-primary bg-surface-300-700 text-surface-50 mt-2" 
                 href="https://github.com/fvalka/flight-cold-temperature-correction" target="_blank">
                     Documentation & Source code
