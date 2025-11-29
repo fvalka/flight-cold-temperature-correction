@@ -8,7 +8,8 @@ test.each([
     { aerodrome_elevation_ft: 0, ground_temperature_degC: -10, input_altitude_ft: 150, assertion_corrected_altitude_ft: 163.0208 }, // Based on ESDU and Wiley
     { aerodrome_elevation_ft: 1000, ground_temperature_degC: -10, input_altitude_ft: 3000, assertion_corrected_altitude_ft: 3162.09 }, // Based on Transport Canda AC 500-020
     { aerodrome_elevation_ft: 12000, ground_temperature_degC: -70, input_altitude_ft: 25000, assertion_corrected_altitude_ft:  28167.5} // Based on Transport Canda AC 500-020
-])('aerodrome elevation: $aerodrome_elevation_ft ft, ground temperature: $ground_temperature_degC degC and altitude: $input_altitude_ft ft',
+])('correcting altitude using aerodrome elevation: $aerodrome_elevation_ft ft, ground temperature: $ground_temperature_degC degC ' + 
+    'and altitude: $input_altitude_ft ft',
     ({ aerodrome_elevation_ft, ground_temperature_degC, input_altitude_ft, assertion_corrected_altitude_ft }) => {
         const aerodrome_elevation = unit(aerodrome_elevation_ft, "ft");
         const aerodrome_ground_temperature = unit(ground_temperature_degC, "degC");
@@ -35,10 +36,12 @@ test.each([
     { aerodrome_elevation_ft: 17000, ground_temperature_degC: -80, input_altitude_ft: 36000 }, 
     { aerodrome_elevation_ft: 0, ground_temperature_degC: 15, input_altitude_ft: 36000 }, 
     { aerodrome_elevation_ft: -1000, ground_temperature_degC: 16, input_altitude_ft: 5000 } 
-])('compare result to Air Canda AC 500-020 calculation for aerodrome elevation: $aerodrome_elevation_ft ft, ground temperature: $ground_temperature_degC degC and altitude: $input_altitude_ft ft',
+])('comparing altitude correction result to Air Canda AC 500-020 calculation for aerodrome elevation: $aerodrome_elevation_ft ft,' + 
+    ' ground temperature: $ground_temperature_degC degC and altitude: $input_altitude_ft ft',
     ({ aerodrome_elevation_ft, ground_temperature_degC, input_altitude_ft }) => {
         // The comparison equation has been implemented based on:
-        // Flight Management System (FMS) Barometric Vertical Navigation (VNAV) Temperature Compensation, Advisory Circular (AC) No. 500-020, Transport Candada, 2025
+        // Flight Management System (FMS) Barometric Vertical Navigation (VNAV) Temperature Compensation, 
+        // Advisory Circular (AC) No. 500-020, Transport Candada, 2025
         // https://tc.canada.ca/en/aviation/reference-centre/advisory-circulars/advisory-circular-ac-no-500-020#toc4-8
         const comparisonIsaAtAirport = 15 - 0.0019812 * aerodrome_elevation_ft;
         const comparisonIsaDeviation = ground_temperature_degC - comparisonIsaAtAirport;
