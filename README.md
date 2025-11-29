@@ -12,7 +12,10 @@ ___
 
 ### Cold Temperature Corrections
 
-To be added
+> _"In winter the mountaints are higher"_
+
+Of course the mountains are not actually higher in winter but the barometric altimeters used in aviation are calibrated to the ISA standard atmostpheric conditions and assume a standard sea level temperature of $15 °C$ with the 
+temperature decreasing with increasing altitude at a rate of $-0.0019812 \frac{°C}{ft}$. 
 
 ### Flight Path Angle
 
@@ -127,3 +130,4 @@ To verify or debug the calculations open the dev console, set the console log le
 ## References
 1. [EUROCONTROL Guidelines for Cold Temperature Corrections by ATS, 2014](https://www.eurocontrol.int/publication/eurocontrol-guidelines-cold-temperature-corrections-ats)
 2. ICAO Doc 8168 Procedures for Air Navigation Services - Aircraft Operations - Volume III - Aircraft Operating Procedures, First Edition, 2018
+3. [Flight Management System (FMS) Barometric Vertical Navigation (VNAV) Temperature Compensation, Advisory Circular (AC) No. 500-020, Transport Candada, 2025](https://tc.canada.ca/en/aviation/reference-centre/advisory-circulars/advisory-circular-ac-no-500-020#toc4-8)
