@@ -1,7 +1,6 @@
 <script lang="ts">
     import NumericalOutputLabel from "./data-display/NumericalOutputLabel.svelte";
     import NumericalInputField from "$lib/components/data-display/NumericalInputField.svelte";
-    import { Switch } from "@skeletonlabs/skeleton-svelte";
     import { isaDeviation } from "../calculations/atmosphere/isa-atmosphere.svelte";
     import { unit } from "mathjs";
     import { isValidNumber } from "$lib/util/input-checker.svelte";
@@ -118,16 +117,6 @@
             unit="°C"
             isInputValid={ isInputValid }
         ></NumericalOutputLabel>
-
-        <label class="label col-span-2">
-            <Switch>
-                <Switch.Control>
-                    <Switch.Thumb />
-                </Switch.Control>
-                <Switch.Label>Advanced Options</Switch.Label>
-                <Switch.HiddenInput />
-            </Switch>
-        </label>
     </div>
 </div>
 

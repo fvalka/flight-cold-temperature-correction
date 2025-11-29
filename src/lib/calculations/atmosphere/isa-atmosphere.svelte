@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-    import { add, multinomial, multiply, subset, subtract, Unit, unit } from "mathjs";
+    import { add, multiply, subtract, Unit, unit } from "mathjs";
 
     export function isaTemperatureForElevation(elevation_ft: Unit) {
         console.log("isaTemperatureForElevation %s", elevation_ft);

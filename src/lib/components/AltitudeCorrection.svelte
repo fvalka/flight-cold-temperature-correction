@@ -10,9 +10,9 @@
     aerodrome_elevation_ft,
     aerodrome_ground_temperature_degC,
     isInputValid,
+    input_altitude_ft = $bindable(undefined),
   } = $props();
 
-  let input_altitude_ft = $state(undefined);
 
   function altitudeCorrectionFormatted(input_altitude_ft: any) {
     if (
