@@ -17,6 +17,10 @@ ___
 Of course the mountains are not actually higher in winter but the barometric altimeters used in aviation are calibrated to the ISA standard atmostpheric conditions and assume a standard sea level temperature of $15 °C$ with the 
 temperature decreasing with increasing altitude at a rate of $-0.0019812 \frac{°C}{ft}$. 
 
+When the temperature is colder than the standard ISA temperature the barometric altimeter in the plane will show an altitude which is higher than the actual altitude. 
+
+
+
 ### Flight Path Angle
 
 The Flight Path Angle is the angle between the horizontal (ground) and the velocity vector relative to the ground.
