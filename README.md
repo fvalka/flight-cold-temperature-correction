@@ -19,6 +19,8 @@ temperature decreasing with increasing altitude at a rate of $-0.0019812 \frac{Â
 
 When the temperature is colder than the standard ISA temperature the barometric altimeter in the plane will show an altitude which is higher than the actual altitude. 
 
+![Figure showing the difference between the actual altitude at ISA -50 degC and the indicated altitude](/doc/introduction/cold-temperature-error/cold-temperature-altitude-error.png)
+
 
 
 ### Flight Path Angle
