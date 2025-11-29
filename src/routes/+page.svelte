@@ -30,8 +30,13 @@
                 elevation of the aerodrome and temperature measured on the ground at the aerodrome. 
             </p>
 
-            <p class="border-2 border-warning-300-700 text-warning-900-100 p-2 font-semibold mt-2 mb-2">
-                Use at your own risk! 
+            <p class="border-2 border-warning-300-700 text-warning-900-100 p-2 font-semibold mt-2 mb-2 text-xs">
+                This software is open source and licensed under the <a class="underline" href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>. 
+                By using this software you agree to the terms of the licence, in particular the Disclaimer of Warranty and the Limitation of Liability. 
+                If you don't agree with these terms leave the page now and don't perform any calculations!
+                <br>
+                This software can not provide any guarantees on the correctness of the results, is not certified, or approved by any authority! 
+                Use purely at your own risk!
             </p>
         </div>
 
