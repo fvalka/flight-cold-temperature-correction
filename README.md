@@ -174,7 +174,7 @@ Unit test examples were manually created based on a third equation from the [Tra
 
 Further manual examples were created for unit tests of the flight path angle calculation. 
 
-### Equations and Calculation Parmaters on the Dev Console 
+### Equations and Calculation Parameters on the Dev Console 
 
 All the equations used and their input parameters are logged to the console on debug level. 
 
