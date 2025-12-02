@@ -174,7 +174,7 @@ Unit test examples were manually created based on a third equation from the [Tra
 
 Further manual examples were created for unit tests of the flight path angle calculation. 
 
-### Equations and Calculation Parmaters on the Dev Console 
+### Equations and Calculation Parameters on the Dev Console 
 
 All the equations used and their input parameters are logged to the console on debug level. 
 
@@ -189,3 +189,6 @@ To verify or debug the calculations open the dev console, set the console log le
 1. [EUROCONTROL Guidelines for Cold Temperature Corrections by ATS, 2014](https://www.eurocontrol.int/publication/eurocontrol-guidelines-cold-temperature-corrections-ats)
 2. ICAO Doc 8168 Procedures for Air Navigation Services - Aircraft Operations - Volume III - Aircraft Operating Procedures, First Edition, 2018
 3. [Flight Management System (FMS) Barometric Vertical Navigation (VNAV) Temperature Compensation, Advisory Circular (AC) No. 500-020, Transport Candada, 2025](https://tc.canada.ca/en/aviation/reference-centre/advisory-circulars/advisory-circular-ac-no-500-020#toc4-8)
+4. Diston, D. J. Computational Modellingand Simulation of Aircraftand the Environment. in Computational Modelling and Simulation of Aircraft and the Environment, Volume 1 (John Wiley & Sons, Incorporated, United Kingdom, 2009).
+
+
