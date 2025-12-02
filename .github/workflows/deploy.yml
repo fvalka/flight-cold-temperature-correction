@@ -11,13 +11,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      # If you're using pnpm, add this step then change the commands and cache key below to use `pnpm`
-      # - name: Install pnpm
-      #   uses: pnpm/action-setup@v3
-      #   with:
-      #     version: 8
-
+        
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
@@ -41,19 +35,19 @@ jobs:
           # this should match the `pages` option in your adapter-static options
           path: 'build/'
 
-  deploy:
-    needs: build_site
-    runs-on: ubuntu-latest
+  # deploy:
+  #   needs: build_site
+  #   runs-on: ubuntu-latest
 
-    permissions:
-      pages: write
-      id-token: write
+  #   permissions:
+  #     pages: write
+  #     id-token: write
 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  #   environment:
+  #     name: github-pages
+  #     url: ${{ steps.deployment.outputs.page_url }}
 
-    steps:
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
+  #   steps:
+  #     - name: Deploy
+  #       id: deployment
+  #       uses: actions/deploy-pages@v4

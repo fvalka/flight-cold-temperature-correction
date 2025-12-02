@@ -1,11 +1,12 @@
 <script context="module" lang="ts">
   import { isaDeviation } from "$lib/calculations/atmosphere/isa-atmosphere.svelte";
-  import { subtract, parse, Unit, unit, add, compare, compareNatural } from 'mathjs'
+  import { subtract, parse, Unit, unit, add, compare, compareNatural, divide, abs } from 'mathjs'
 
   // Constants and equations used in the calculation
   const lapse_rate = unit(-0.0019812,"K/ft");
   const sea_level_temperature = unit(288.15, "K");
-  const equation_node = parse("(-DeltaTstd / L0) * log(1 + (L0 * hPAirplane)/(T0 + L0 * hPAerodrome))");
+  const correction_function = parse("(-DeltaTstd / L0) * log(1 + (L0 * hPAirplane)/(T0 + L0 * hPAerodrome)) + hGAirplane - hPAirplane");
+  const correction_function_derivative = parse("-(L0 * hPAerodrome + T0 + L0 * hPAirplane + DeltaTstd)/(L0 * hPAerodrome + T0 + L0 * hPAirplane)");
 
   /**
    * Performs an altitude temperature correction calculation using the 
@@ -30,21 +31,51 @@
       let input_height = subtract(input_altitude, aerodrome_elevation);
       let aerodrome_isa_deviation_degC = isaDeviation(aerodrome_elevation, aerodrome_ground_temperature);
 
-      const calculation_parameters = {
-        DeltaTstd: aerodrome_isa_deviation_degC,
-        L0: lapse_rate,
-        T0: sea_level_temperature,
-        hPAirplane: input_height,
-        hPAerodrome: aerodrome_elevation
-      };
+      console.debug("Calculating altitude correction using iterative method.");
+      console.debug("Equation to solve: 0 == %s", correction_function.toString());
+      console.debug("Equation to solve: 0 == %s", correction_function.toTex());
+      console.debug("Derivative of the right hand side equation to solve: %s", correction_function_derivative.toString());
+      console.debug("Derivative of the right hand side equation to solve: %s", correction_function_derivative.toTex());
 
-      console.debug("Performing the ESDU based altitude temperature correction calculation using the equation: %s", equation_node.toString());
-      console.debug("Using the calculation parameters:");
-      console.debug(calculation_parameters);
-      
-      const height_correction = equation_node.evaluate(calculation_parameters).to("ft");
-      console.debug("Resulting height correction to be added to altitude: %s", height_correction.toString());
+      let hPAirplane: Unit = input_height;
+      let hPAirplaneNew: Unit;
 
-      return add(input_altitude, height_correction);
+      const maxIter = 50;
+      const tolerance = unit(0.0001, "ft");
+
+      let iter = 0;
+
+      while(iter++ < maxIter) {
+        const calculation_parameters = {
+          DeltaTstd: aerodrome_isa_deviation_degC,
+          L0: lapse_rate,
+          T0: sea_level_temperature,
+          hPAirplane: hPAirplane,
+          hGAirplane: input_height,
+          hPAerodrome: aerodrome_elevation
+        };
+
+        console.debug("Performing the next step in the ESDU based iterative altitude temperature " + 
+          "correction calculation");
+        console.debug("Using the calculation parameters:");
+        console.debug(calculation_parameters);
+        
+        const value = correction_function.evaluate(calculation_parameters).to("ft");
+        const derivative_value = correction_function_derivative.evaluate(calculation_parameters);
+
+        hPAirplaneNew = <Unit>subtract(hPAirplane, divide(value, derivative_value));
+        console.debug("New function value: %s new derivative value: %s and new guess: %s",value, derivative_value, hPAirplaneNew);
+
+        hPAirplane = hPAirplaneNew;
+
+        if (compareNatural(abs(subtract(hPAirplane, hPAirplaneNew)), tolerance) < 0) {
+          console.debug("Found new iterative solution in %d iterations", iter);
+          break;
+        }
+      }
+
+      console.debug("Resulting corrected airplane pressure height %s", hPAirplane.toString());
+
+      return add(aerodrome_elevation, hPAirplane);
     }
 </script>

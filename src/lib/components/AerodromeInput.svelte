@@ -41,9 +41,9 @@
         }
         
         // Normal errors, all will be shown at once
-        if (calculatedIsaDeviation > 0) {
-            inputErrors.push("Calculations are only possible for ISA deviations smaller than 0. So temperatures colder than the standard atmosphere.");
-        }
+        //if (calculatedIsaDeviation > 0) {
+        //    inputErrors.push("Calculations are only possible for ISA deviations smaller than 0. So temperatures colder than the standard atmosphere.");
+        //}
 
         if (aerodrome_elevation_ft > 36000) {
             inputErrors.push("The temperature correction calculation is only valid up to 36000 ft please enter a smaller input value!");
