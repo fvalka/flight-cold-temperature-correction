@@ -1,6 +1,10 @@
 <script context="module" lang="ts">
   import { isaDeviation } from "$lib/calculations/atmosphere/isa-atmosphere.svelte";
-  import { subtract, parse, Unit, unit, add, compare, compareNatural, divide, abs } from 'mathjs'
+  import { subtract, parse, Unit, unit, add, compare, compareNatural, divide, abs, multiply } from 'mathjs'
+
+  // Iteration method options
+  const iteration_maxIter = 50;
+  const iteration_tolerance = unit(0.000001, "ft");
 
   // Constants and equations used in the calculation
   const lapse_rate = unit(-0.0019812,"K/ft");
@@ -32,28 +36,39 @@
       let aerodrome_isa_deviation_degC = isaDeviation(aerodrome_elevation, aerodrome_ground_temperature);
 
       console.debug("Calculating altitude correction using iterative method.");
-      console.debug("Equation to solve: 0 == %s", correction_function.toString());
-      console.debug("Equation to solve: 0 == %s", correction_function.toTex());
-      console.debug("Derivative of the right hand side equation to solve: %s", correction_function_derivative.toString());
-      console.debug("Derivative of the right hand side equation to solve: %s", correction_function_derivative.toTex());
 
-      let hPAirplane: Unit = input_height;
-      let hPAirplaneNew: Unit;
-
-      const maxIter = 50;
-      const tolerance = unit(0.0001, "ft");
-
-      let iter = 0;
-
-      while(iter++ < maxIter) {
-        const calculation_parameters = {
+      const calculation_parameters = {
           DeltaTstd: aerodrome_isa_deviation_degC,
           L0: lapse_rate,
           T0: sea_level_temperature,
-          hPAirplane: hPAirplane,
           hGAirplane: input_height,
           hPAerodrome: aerodrome_elevation
         };
+
+      let initial_value = input_height;
+      const hPAirplane = findIterativeSolution(calculation_parameters, initial_value);
+
+      // start an additional iterative solution search from 0 ft to cross check for convergence 
+      const hPAirplaneSecondCheck = findIterativeSolution(calculation_parameters, unit(0, "ft"));
+      if(compareNatural(abs(subtract(hPAirplane, hPAirplaneSecondCheck)), multiply(iteration_tolerance, 100)) > 0) {
+        throw new Error("The convergence crosscheck has failed between the iterative solution starting from the input height and from 0ft!");
+      }
+
+      console.debug("Resulting correction to be added to the elevation: hPAirplane %s", hPAirplane);
+
+      return add(aerodrome_elevation, hPAirplane);
+    }
+
+    function findIterativeSolution(calculation_parameters: any, hPAirplane: Unit ): Unit {
+      console.debug("Starting to search for iterative solution");
+      console.debug("Equation to solve: 0 == %s", correction_function.toString());
+      console.debug("Derivative of the right hand side equation to solve: %s", correction_function_derivative.toString());
+
+      let hPAirplaneNew: Unit;
+
+      let iter = 0;
+      while(iter++ < iteration_maxIter) {
+        calculation_parameters["hPAirplane"] = hPAirplane;
 
         console.debug("Performing the next step in the ESDU based iterative altitude temperature " + 
           "correction calculation");
@@ -63,19 +78,23 @@
         const value = correction_function.evaluate(calculation_parameters).to("ft");
         const derivative_value = correction_function_derivative.evaluate(calculation_parameters);
 
+        if (abs(derivative_value) < Number.EPSILON) {
+          throw new Error("Iterative height correction solution didn't converge since the derivative value was too small!");
+        }
+
         hPAirplaneNew = <Unit>subtract(hPAirplane, divide(value, derivative_value));
         console.debug("New function value: %s new derivative value: %s and new guess: %s",value, derivative_value, hPAirplaneNew);
 
-        hPAirplane = hPAirplaneNew;
-
-        if (compareNatural(abs(subtract(hPAirplane, hPAirplaneNew)), tolerance) < 0) {
-          console.debug("Found new iterative solution in %d iterations", iter);
-          break;
+        // Check if we reached the convergance level
+        const stepDelta = abs(subtract(hPAirplane, hPAirplaneNew));
+        if (compareNatural(stepDelta, iteration_tolerance) < 0) {
+          console.debug("Found new iterative solution in %d iterations, difference: %s", iter, stepDelta);
+          return hPAirplaneNew;
         }
+
+        hPAirplane = hPAirplaneNew;
       }
 
-      console.debug("Resulting corrected airplane pressure height %s", hPAirplane.toString());
-
-      return add(aerodrome_elevation, hPAirplane);
+      throw new Error("Iterative solution search for altitude correction didn't converge!");
     }
-</script>
+</script> 
