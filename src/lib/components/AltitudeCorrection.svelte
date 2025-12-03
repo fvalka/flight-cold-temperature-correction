@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { altitudeCorrectionESDU } from "$lib/calculations/temperature-correction/esdu-temperature-correction.svelte";
   import NumericalInputField from "$lib/components/data-display/NumericalInputField.svelte";
   import { unit } from "mathjs";
   import NumericalOutputLabel from "./data-display/NumericalOutputLabel.svelte";
   import { isValidNumber } from "$lib/util/input-checker.svelte";
+    import { altitudeCorrectionCrossChecked } from "$lib/calculations/temperature-correction/cross-checked-temperature-correction.svelte";
 
   let {
     label,
@@ -56,7 +56,7 @@
       }
 
       const result = Math.ceil(
-        altitudeCorrectionESDU(
+        altitudeCorrectionCrossChecked(
           unit(input_altitude_ft, "ft"),
           unit(aerodrome_elevation_ft, "ft"),
           unit(aerodrome_ground_temperature_degC, "degC"),

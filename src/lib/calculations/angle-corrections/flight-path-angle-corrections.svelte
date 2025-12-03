@@ -6,7 +6,7 @@
         Unit,
         unit
     } from "mathjs";
-    import { altitudeCorrectionESDU } from "../temperature-correction/esdu-temperature-correction.svelte";
+    import { altitudeCorrectionCrossChecked } from "../temperature-correction/cross-checked-temperature-correction.svelte";
 
     // rad is added in the end since the result of atan will be in radians but math.js drops the unit
     const equation_node = parse("atan( tan(gammaUncorrected) * hCorrected / hUncorrected ) rad");
@@ -14,7 +14,7 @@
     export function flightPathAngleCorrection(uncorrect_flight_path_angle: Unit, uncorrected_altitude_at_faf: Unit, 
         aerodrome_elevation: Unit, aerodrome_ground_temperature: Unit) {
 
-        let corrected_altitiude_at_faf = altitudeCorrectionESDU(uncorrected_altitude_at_faf, aerodrome_elevation, aerodrome_ground_temperature);
+        let corrected_altitiude_at_faf = altitudeCorrectionCrossChecked(uncorrected_altitude_at_faf, aerodrome_elevation, aerodrome_ground_temperature);
 
         if (compareNatural(corrected_altitiude_at_faf, uncorrected_altitude_at_faf,) < 0) {
             throw new Error("The corrected altitude at the FAF/FDP needs to be at or above the uncorrected altitude. ");

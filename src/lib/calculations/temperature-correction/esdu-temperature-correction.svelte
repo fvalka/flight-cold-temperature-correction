@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
   import { isaDeviation } from "$lib/calculations/atmosphere/isa-atmosphere.svelte";
-  import { subtract, parse, Unit, unit, add, compare, compareNatural, divide, abs, multiply } from 'mathjs'
+  import { abs, add, compareNatural, divide, multiply, parse, subtract, Unit, unit } from 'mathjs';
 
   // Iteration method options
   const iteration_maxIter = 50;
