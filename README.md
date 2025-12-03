@@ -11,6 +11,10 @@ THIS SOFTWARE IS NOT CERTIFIED OR APPROVED FOR ANY OPERATIONAL USE!
 USE PURELY AT YOUR OWN RISK!
 ___
 
+## Acknowledgements
+
+Thank you very much to lightcivvie who pointed out a bug in the initial implementation of the calculation and who helped me fix this issues and also generated test cases from his own implementation!  
+
 ## Introduction
 
 ### Cold Temperature Corrections
@@ -107,19 +111,23 @@ The uncorrected height of the aircraft above the aerodrome is obtained by subtra
 where we then use the following physical quanitites in the calculation of the height correction $\Delta h_{correction}$ in $ft$:
 - aerodrome ISA temperature deviation, $\Delta T_{std}$, in $°C$
 - the ISA standard lapse rate, $L_0$ of $-0.0019812 \frac{°C}{ft}$
-- the uncorrected height of the aircraft above the aerodrome elevation, $\Delta hP_{Airplane}$ in $ft$
+- the uncorrected geopotential height of the aircraft above the aerodrome elevation, $\Delta hG_{Airplane}$ in $ft$
 - the sea level ISA standard temperature, $T_0$, of $288.15 K$
 
 ```math
-\Delta h_{correction} = \frac{-\Delta T_{std}}{L_0} \ln \left( 1 + \frac{L_0 \Delta hP_{Airplane}}{T_0 + L_0 hP_{Aerodrome}} \right)
+\Delta h_{correction} = \Delta hP_{Airplane} - \Delta hG_{Airplane} = \frac{-\Delta T_{std}}{L_0} \ln \left( 1 + \frac{L_0 \Delta hP_{Airplane}}{T_0 + L_0 hP_{Aerodrome}} \right)
 ```
-#### MathJS Implementation toTex
 
-Using the [mathjs](https://mathjs.org/) evaluation parser we can compare the actual equation in the actual program code used to the equation described above:
+Since we knwo the geopotential height of the aircraft above the aerodrome  $\Delta hG_{Airplane}$  but have to find the pressure height of the airplane, $\Delta hP_{Airplane}$ 
+which appears on both sides of the equation we need to implement an iterative solver for the equation in order to calculate $\Delta hP_{Airplane}$ in steps. 
+
+For this we can rearrange the equation to turn it into a root (or zeros) finding problem instead. 
 
 ```math
-\left(\frac{- DeltaTstd}{ L0}\right)\cdot\ln\left(1+\frac{\left( L0\cdot hPAirplane\right)}{\left( T0+ L0\cdot hPAerodrome\right)}\right)
+0 = \frac{-\Delta T_{std}}{L_0} \ln \left( 1 + \frac{L_0 \Delta hP_{Airplane}}{T_0 + L_0 hP_{Aerodrome}} \right) + \Delta hG_{Airplane} - \Delta hP_{Airplane}
 ```
+
+The zeros of this function can then be found using the [Newton–Raphson method](https://en.wikipedia.org/wiki/Newton%27s_method). 
 
 ### Flight Path Angle Correction
 
