@@ -55,7 +55,6 @@
       }
 
       console.debug("Resulting correction to be added to the elevation: hPAirplane %s", hPAirplane);
-
       return add(aerodrome_elevation, hPAirplane);
     }
 
