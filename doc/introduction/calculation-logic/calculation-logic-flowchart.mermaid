@@ -1,0 +1,44 @@
+---
+config:
+  layout: dagre
+  theme: neutral
+  look: neo
+---
+flowchart TB
+ subgraph subGraph0["Simplified Method"]
+        calculate_simplified@{ label: "Calculate temperature correction using the 'Simplified Method'" }
+        simplified_method_result[\"$$ \Delta hP_{Aerodrome,simplified} $$"\]
+  end
+ subgraph subGraph1["Accurate Method"]
+        calculate_isa_deviation["Calculate ISA deviation"]
+        calculate_esdu@{ label: "Calculate temperature correction using the 'Accurate Method'" }
+        iterative_solver["Solve equation iteratively using Newton-Raphson method"]
+        accurate_method_result[\"$$ \Delta hP_{Aerodrome,accurate} $$"\]
+  end
+ subgraph subGraph2["Compare results"]
+        compare_results{{"Compare the results: Accurate method + 10 ft >= Simplified Method"}}
+        decide_percentage_deviation_tolerance{{"hAerodrome &lt;= 10000 ft AND zAirplane - hAerodrome &lt;= 5000 ft"}}
+        compare_lower_percentage_tolerance{{"Percentage difference of simplified and accurate method &lt;= 1%"}}
+        compare_high_percentage_tolerance{{"Percentage difference of simplified and accurate method &lt;= 5%"}}
+  end
+    input_altitude[/"$$z_{Airplane}$$"/] --> verify_input_altitude{{"&gt;= -1000 ft AND &lt;= 36000 ft"}}
+    aerodrome_elevation[/"$$ h_{Aerodrome} $$"/] --> verify_aerodrome_elevation{{"&gt;= -1000 ft AND &lt;= 36000 ft"}}
+    aerodrome_temperature[/"$$T_{Aerodrome}$$"/] --> verify_aerodrome_temperature{{"&gt;= -100°C AND &lt;= 60°C"}}
+    verify_input_altitude -- yes --> calculate_crosschecked["Calculate temperature corrrection using both methods and cross-check the result"]
+    verify_aerodrome_elevation -- yes --> calculate_crosschecked
+    verify_aerodrome_temperature -- yes --> calculate_crosschecked
+    calculate_crosschecked --> calculate_simplified & calculate_esdu
+    calculate_simplified --> simplified_method_result
+    calculate_esdu --> calculate_isa_deviation
+    calculate_isa_deviation --> iterative_solver
+    iterative_solver --> accurate_method_result
+    accurate_method_result --> compare_results
+    simplified_method_result --> compare_results
+    compare_results -- yes --> decide_percentage_deviation_tolerance
+    decide_percentage_deviation_tolerance -- yes --> compare_lower_percentage_tolerance
+    decide_percentage_deviation_tolerance -- no --> compare_high_percentage_tolerance
+    compare_lower_percentage_tolerance -- yes --> return_result[\"$$ \Delta hP_{Aerodrome,accurate} + z_{Airplane} $$"\]
+    compare_high_percentage_tolerance -- yes --> return_result
+
+    calculate_simplified@{ shape: rect}
+    calculate_esdu@{ shape: rect}
