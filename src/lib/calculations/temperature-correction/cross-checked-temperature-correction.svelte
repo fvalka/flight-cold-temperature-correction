@@ -4,13 +4,21 @@
     import { simplifiedAltitudeCorrection } from "./simplified-temperature-correction.svelte";
 
     export function altitudeCorrectionCrossChecked(input_altitude: Unit, aerodrome_elevation: Unit, aerodrome_ground_temperature: Unit) {
+        if (compareNatural(input_altitude, unit(-1000, "ft") || compareNatural(input_altitude, unit(36000, "ft")) > 0 ) < 0) {
+            throw new Error("Invalid input altitude! This equation is only valid for altitudes up to the ISA tropopause!");
+        } 
+
+        if (compareNatural(aerodrome_elevation, unit(-1000, "ft")) < 0 || compareNatural(aerodrome_elevation, unit(36000, "ft")) > 0 ) {
+            throw new Error("Invalid aerodrome elevation! This equation is only valid for altitudes up to the ISA tropopause!");
+        }  
+        
+        if (compareNatural(aerodrome_ground_temperature, unit(-100, "degC")) < 0 || compareNatural(aerodrome_ground_temperature, unit(60, "degC")) > 0) {
+            throw new Error("Invalid temperature! Please enter a value betwen -100 °C and 60 °C. Entered temperature: " + aerodrome_ground_temperature.toNumber("degC"));
+        } 
+
         if (compareNatural(input_altitude, aerodrome_elevation) < 0) {
             throw new Error("The altitude to be corrected needs to be above the aerodrome elevation!");
         }
-
-        if (compareNatural(input_altitude, unit(36000, "ft")) > 0 ) {
-            throw new Error("This equation is only valid for altitudes up to the ISA tropopause!");
-        } 
 
         let input_height = subtract(input_altitude, aerodrome_elevation);
 

@@ -165,6 +165,11 @@ test('Compare the esd temperature correction over the full range of valid inputs
             const comparisonIsaAtAirport = 15 - 0.0019812 * aerodrome_elevation_ft;
             const ground_temperature_degC = comparisonIsaAtAirport  + isa_deviation_degC;
 
+            // Skip tests for temperatures outside of the valid range
+            if(ground_temperature_degC < -100) {
+                break;
+            }
+
             const aerodrome_elevation = unit(aerodrome_elevation_ft, "ft");
             const aerodrome_ground_temperature = unit(ground_temperature_degC, "degC");
 
