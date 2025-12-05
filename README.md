@@ -26,8 +26,9 @@ temperature decreasing with increasing altitude at a rate of $-0.0019812 \frac{�
 
 When the temperature is colder than the standard ISA temperature the barometric altimeter in the plane will show an altitude which is higher than the actual altitude. 
 
-![Figure showing the difference between the actual altitude at ISA -50 degC and the indicated altitude](/doc/introduction/cold-temperature-error/cold-temperature-altitude-error.png)
-
+<p align="center">
+  <img style="width: 70%;" src="/doc/introduction/cold-temperature-error/cold-temperature-altitude-error.png" alt="Figure showing the difference between the actual altitude at ISA -50 degC and the indicated altitude"/>
+</p>
 
 
 ### Flight Path Angle
@@ -38,11 +39,15 @@ The velocity vector relative to the ground can be split up into two components: 
 Horizontal (parallel) to the ground with it’s length being the: Groundspeed <br>
 Vertical (perpendicular) to the ground with it’s length being the: Vertical speed
 
-![Flight path angle explanation based on groundspeed and vertical speed](doc/introduction/flight-path-angle/flight-path-angle-introduction.png)
+<p align="center">
+  <img style="width: 70%;" src="/doc/introduction/flight-path-angle/flight-path-angle-introduction.png" alt="Flight path angle explanation based on groundspeed and vertical speed"/>
+</p>
 
 Drawing just the lengths of the vectors as a triangle we get:
 
-![Flight path angle triangle](/doc/introduction/flight-path-angle/flight-path-angle-triangle.png)
+<p align="center">
+  <img style="width: 70%;" src="/doc/introduction/flight-path-angle/flight-path-angle-triangle.png" alt="Flight path angle triangle"/>
+</p>
 
 Therefore we can calculate the Flight Path Angle from the Vertical Speed and Ground Speed using the arctan (inverse of the tangent function) making sure that we first convert them to the same units
 ```math
@@ -71,7 +76,9 @@ Which is also where the rule of thumb comes from that for descending on a 3° gl
 When flight path angle is determined based on the change in barometric altitude or barometric vertical speed it will also be subject to altimetry errors caused by the 
 off-standard temperature of the atmosphere. 
 
-![Flight path angle cold temperature corrections](/doc/introduction/flight-path-angle/flight-path-angle-temperature-corrections.png)
+<p align="center">
+  <img style="width: 70%;" src="/doc/introduction/flight-path-angle/flight-path-angle-temperature-corrections.png" alt="Flight path angle cold temperature corrections"/>
+</p>
 
 Therefore we can see that after correction the approach path seems steeper based on the instrumentation of the aircraft while the actual approach path is now following the intended flight path angle. 
 
@@ -86,6 +93,15 @@ As inputs we use:
 - the altitude (above MSL) which we want to correct, $z_{Airplane}$, in $ft$
 - the flight path angle which we want to correct, $\gamma_{Approach}$, in $°$
 - the climb gradient which want to correct, $\bar{\gamma}_{Climb}$, in $%$
+
+### Calculation Logic
+
+The altitude correction calculation is performed twice once using the "Accurate method" correction, which is also used for the result, and once using the "Simplified method".
+Both results are compared to each other for cross checking. 
+
+<p align="center">
+  <img style="width: 75%;" src="/doc/introduction/calculation-logic/calculation-logic-flowchart.png" alt="Calculation logic flow chart"/>
+</p>
 
 ### ISA Deviation 
 
