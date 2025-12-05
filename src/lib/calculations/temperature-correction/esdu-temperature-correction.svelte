@@ -84,9 +84,9 @@
         hPAirplaneNew = <Unit>subtract(hPAirplane, divide(value, derivative_value));
         console.debug("New function value: %s new derivative value: %s and new guess: %s",value, derivative_value, hPAirplaneNew);
 
-        // Check if we reached the convergance level
+        // Check if we reached the convergence level
         const stepDelta = abs(subtract(hPAirplane, hPAirplaneNew));
-        if (compareNatural(stepDelta, iteration_tolerance) < 0) {
+        if (compareNatural(stepDelta, iteration_tolerance) < 0 && compareNatural(abs(value), iteration_tolerance) < 0) {
           console.debug("Found new iterative solution in %d iterations, difference: %s", iter, stepDelta);
           return hPAirplaneNew;
         }
