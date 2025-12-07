@@ -186,12 +186,6 @@ This flight path angle is then corrected as described for the flight path angle 
 
 ## Validation / Debugging of the Calculations
 
-### Crossverification against two other implementations
-
-Unit test examples were generated using two other implementations done by myself but in R and once using the ESDU equation described above 
-and also using an alternative equation, these were also used to generate some test points for the unit tests:
-[/doc/validation-implementation/temperature-correction.R](https://github.com/fvalka/flight-cold-temperature-correction/blob/21d2b78d73f30d150f2859dae0b474c6bad3b37b/doc/validation-implementation/temperature-correction.R)
-
 ### Manual generation of unit test examples
 
 Unit test examples were manually created based on a third equation from the [Transport Canada AC 500-200, section 4.8 "Acccurate Method"](https://tc.canada.ca/en/aviation/reference-centre/advisory-circulars/advisory-circular-ac-no-500-020#toc4-8)
